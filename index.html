@@ -1,0 +1,1331 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mohammad Khazaie — DevOps Engineer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg-primary: #0a0e17;
+        --bg-secondary: #111827;
+        --bg-card: #1a2233;
+        --bg-card-hover: #1f2a3e;
+        --accent-cyan: #00e5ff;
+        --accent-green: #00ff88;
+        --accent-purple: #a78bfa;
+        --accent-orange: #ff9f43;
+        --accent-red: #ff6b6b;
+        --accent-blue: #3b82f6;
+        --text-primary: #e2e8f0;
+        --text-secondary: #94a3b8;
+        --text-muted: #64748b;
+        --border: #1e293b;
+        --glow-cyan: rgba(0, 229, 255, 0.15);
+        --glow-green: rgba(0, 255, 136, 0.15);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background: var(--bg-primary);
+        color: var(--text-primary);
+        font-family: "Space Grotesk", sans-serif;
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      /* Noise overlay */
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+        pointer-events: none;
+        z-index: 1000;
+      }
+
+      /* Grid background */
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(0, 229, 255, 0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(0, 229, 255, 0.03) 1px, transparent 1px);
+        background-size: 60px 60px;
+        pointer-events: none;
+        z-index: -1;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem 1.5rem;
+      }
+
+      /* ─── HERO SECTION ─── */
+      .hero {
+        display: flex;
+        align-items: flex-start;
+        gap: 2.5rem;
+        padding: 3rem 0;
+        border-bottom: 1px solid var(--border);
+        margin-bottom: 3rem;
+        position: relative;
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: -100px;
+        right: -200px;
+        width: 600px;
+        height: 600px;
+        background: radial-gradient(
+          circle,
+          rgba(0, 229, 255, 0.06) 0%,
+          transparent 70%
+        );
+        pointer-events: none;
+      }
+
+      .avatar-container {
+        flex-shrink: 0;
+        position: relative;
+      }
+
+      .avatar {
+        width: 140px;
+        height: 140px;
+        border-radius: 20px;
+        background: linear-gradient(
+          135deg,
+          var(--accent-cyan),
+          var(--accent-purple)
+        );
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 2.8rem;
+        font-weight: 700;
+        color: var(--bg-primary);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .avatar::after {
+        content: "";
+        position: absolute;
+        inset: 3px;
+        border-radius: 18px;
+        background: var(--bg-primary);
+      }
+
+      .avatar span {
+        position: relative;
+        z-index: 2;
+        background: linear-gradient(
+          135deg,
+          var(--accent-cyan),
+          var(--accent-purple)
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .status-dot {
+        position: absolute;
+        bottom: 8px;
+        right: 8px;
+        width: 18px;
+        height: 18px;
+        background: var(--accent-green);
+        border-radius: 50%;
+        border: 3px solid var(--bg-primary);
+        animation: pulse 2s ease-in-out infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.4);
+        }
+        50% {
+          box-shadow: 0 0 0 8px rgba(0, 255, 136, 0);
+        }
+      }
+
+      .hero-info {
+        flex: 1;
+      }
+
+      .hero-info h1 {
+        font-size: 2.4rem;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        margin-bottom: 0.25rem;
+        background: linear-gradient(
+          135deg,
+          var(--text-primary) 0%,
+          var(--accent-cyan) 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .hero-title {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 1.1rem;
+        color: var(--accent-cyan);
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .hero-title::before {
+        content: ">";
+        color: var(--accent-green);
+        font-weight: 700;
+      }
+
+      .hero-title .cursor {
+        display: inline-block;
+        width: 2px;
+        height: 1.1rem;
+        background: var(--accent-cyan);
+        animation: blink 1s step-end infinite;
+      }
+
+      @keyframes blink {
+        50% {
+          opacity: 0;
+        }
+      }
+
+      .hero-summary {
+        color: var(--text-secondary);
+        font-size: 0.95rem;
+        max-width: 600px;
+        line-height: 1.7;
+      }
+
+      .hero-links {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1.5rem;
+        flex-wrap: wrap;
+      }
+
+      .hero-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        color: var(--text-secondary);
+        text-decoration: none;
+        font-size: 0.85rem;
+        font-family: "JetBrains Mono", monospace;
+        transition: all 0.3s ease;
+      }
+
+      .hero-link:hover {
+        border-color: var(--accent-cyan);
+        color: var(--accent-cyan);
+        background: var(--glow-cyan);
+        transform: translateY(-2px);
+      }
+
+      .hero-link svg {
+        width: 16px;
+        height: 16px;
+      }
+
+      /* ─── STATS ROW ─── */
+      .stats-row {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1rem;
+        margin-bottom: 3rem;
+      }
+
+      .stat-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 1.5rem;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        opacity: 0;
+        animation: fadeUp 0.6s ease forwards;
+      }
+
+      .stat-card:nth-child(1) {
+        animation-delay: 0.1s;
+      }
+      .stat-card:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      .stat-card:nth-child(3) {
+        animation-delay: 0.3s;
+      }
+      .stat-card:nth-child(4) {
+        animation-delay: 0.4s;
+      }
+
+      .stat-card:hover {
+        border-color: var(--accent-cyan);
+        transform: translateY(-4px);
+        box-shadow: 0 8px 32px rgba(0, 229, 255, 0.1);
+      }
+
+      .stat-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--accent-cyan),
+          transparent
+        );
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .stat-card:hover::before {
+        opacity: 1;
+      }
+
+      .stat-number {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 0.25rem;
+      }
+
+      .stat-card:nth-child(1) .stat-number {
+        color: var(--accent-cyan);
+      }
+      .stat-card:nth-child(2) .stat-number {
+        color: var(--accent-green);
+      }
+      .stat-card:nth-child(3) .stat-number {
+        color: var(--accent-purple);
+      }
+      .stat-card:nth-child(4) .stat-number {
+        color: var(--accent-orange);
+      }
+
+      .stat-label {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+
+      /* ─── SECTION HEADERS ─── */
+      .section-header {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .section-header h2 {
+        font-size: 1.4rem;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+      }
+
+      .section-header .line {
+        flex: 1;
+        height: 1px;
+        background: linear-gradient(90deg, var(--border), transparent);
+      }
+
+      .section-header .tag {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.7rem;
+        padding: 0.25rem 0.6rem;
+        border-radius: 4px;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        color: var(--text-muted);
+      }
+
+      /* ─── TECH STACK ─── */
+      .tech-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1rem;
+        margin-bottom: 3rem;
+      }
+
+      .tech-category {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 1.5rem;
+        transition: all 0.3s ease;
+        opacity: 0;
+        animation: fadeUp 0.6s ease forwards;
+      }
+
+      .tech-category:nth-child(1) {
+        animation-delay: 0.15s;
+      }
+      .tech-category:nth-child(2) {
+        animation-delay: 0.25s;
+      }
+      .tech-category:nth-child(3) {
+        animation-delay: 0.35s;
+      }
+      .tech-category:nth-child(4) {
+        animation-delay: 0.45s;
+      }
+
+      .tech-category:hover {
+        border-color: var(--accent-cyan);
+        transform: translateY(-3px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+      }
+
+      .tech-category-header {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        margin-bottom: 1rem;
+      }
+
+      .tech-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+      }
+
+      .tech-category:nth-child(1) .tech-icon {
+        background: rgba(0, 229, 255, 0.15);
+      }
+      .tech-category:nth-child(2) .tech-icon {
+        background: rgba(0, 255, 136, 0.15);
+      }
+      .tech-category:nth-child(3) .tech-icon {
+        background: rgba(167, 139, 250, 0.15);
+      }
+      .tech-category:nth-child(4) .tech-icon {
+        background: rgba(255, 159, 67, 0.15);
+      }
+
+      .tech-category-title {
+        font-size: 0.95rem;
+        font-weight: 600;
+      }
+
+      .tech-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .tech-tag {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.72rem;
+        padding: 0.35rem 0.7rem;
+        border-radius: 6px;
+        background: var(--bg-primary);
+        border: 1px solid var(--border);
+        color: var(--text-secondary);
+        transition: all 0.2s ease;
+        cursor: default;
+      }
+
+      .tech-tag:hover {
+        border-color: var(--accent-cyan);
+        color: var(--accent-cyan);
+        background: var(--glow-cyan);
+      }
+
+      /* ─── EXPERIENCE ─── */
+      .experience-section {
+        margin-bottom: 3rem;
+      }
+
+      .timeline {
+        position: relative;
+        padding-left: 2rem;
+      }
+
+      .timeline::before {
+        content: "";
+        position: absolute;
+        left: 6px;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: linear-gradient(
+          to bottom,
+          var(--accent-cyan),
+          var(--accent-purple),
+          var(--accent-green)
+        );
+        border-radius: 2px;
+      }
+
+      .timeline-item {
+        position: relative;
+        margin-bottom: 2rem;
+        opacity: 0;
+        animation: fadeUp 0.6s ease forwards;
+      }
+
+      .timeline-item:nth-child(1) {
+        animation-delay: 0.2s;
+      }
+      .timeline-item:nth-child(2) {
+        animation-delay: 0.35s;
+      }
+      .timeline-item:nth-child(3) {
+        animation-delay: 0.5s;
+      }
+
+      .timeline-dot {
+        position: absolute;
+        left: -2rem;
+        top: 0.4rem;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        border: 3px solid var(--accent-cyan);
+        background: var(--bg-primary);
+        transform: translateX(0.5px);
+      }
+
+      .timeline-item:nth-child(2) .timeline-dot {
+        border-color: var(--accent-green);
+      }
+      .timeline-item:nth-child(3) .timeline-dot {
+        border-color: var(--accent-purple);
+      }
+
+      .timeline-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 1.5rem;
+        transition: all 0.3s ease;
+      }
+
+      .timeline-card:hover {
+        border-color: var(--accent-cyan);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      }
+
+      .timeline-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        margin-bottom: 0.75rem;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .timeline-role {
+        font-size: 1.1rem;
+        font-weight: 600;
+      }
+
+      .timeline-company {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.85rem;
+        color: var(--accent-cyan);
+      }
+
+      .timeline-desc {
+        color: var(--text-secondary);
+        font-size: 0.88rem;
+        line-height: 1.7;
+      }
+
+      .timeline-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+        margin-top: 1rem;
+      }
+
+      .timeline-tag {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.65rem;
+        padding: 0.2rem 0.5rem;
+        border-radius: 4px;
+        background: rgba(0, 229, 255, 0.08);
+        border: 1px solid rgba(0, 229, 255, 0.2);
+        color: var(--accent-cyan);
+      }
+
+      /* ─── ACHIEVEMENTS ─── */
+      .achievements-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 1rem;
+        margin-bottom: 3rem;
+      }
+
+      .achievement-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 1.5rem;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        opacity: 0;
+        animation: fadeUp 0.6s ease forwards;
+      }
+
+      .achievement-card:nth-child(1) {
+        animation-delay: 0.1s;
+      }
+      .achievement-card:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      .achievement-card:nth-child(3) {
+        animation-delay: 0.3s;
+      }
+      .achievement-card:nth-child(4) {
+        animation-delay: 0.4s;
+      }
+      .achievement-card:nth-child(5) {
+        animation-delay: 0.5s;
+      }
+      .achievement-card:nth-child(6) {
+        animation-delay: 0.6s;
+      }
+
+      .achievement-card:hover {
+        border-color: var(--accent-green);
+        transform: translateY(-3px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+      }
+
+      .achievement-metric {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--accent-green);
+        margin-bottom: 0.5rem;
+      }
+
+      .achievement-card:nth-child(2) .achievement-metric {
+        color: var(--accent-cyan);
+      }
+      .achievement-card:nth-child(3) .achievement-metric {
+        color: var(--accent-purple);
+      }
+      .achievement-card:nth-child(4) .achievement-metric {
+        color: var(--accent-orange);
+      }
+      .achievement-card:nth-child(5) .achievement-metric {
+        color: var(--accent-red);
+      }
+      .achievement-card:nth-child(6) .achievement-metric {
+        color: var(--accent-blue);
+      }
+
+      .achievement-title {
+        font-size: 0.95rem;
+        font-weight: 600;
+        margin-bottom: 0.4rem;
+      }
+
+      .achievement-context {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.7rem;
+        color: var(--text-muted);
+        margin-bottom: 0.5rem;
+      }
+
+      .achievement-desc {
+        color: var(--text-secondary);
+        font-size: 0.85rem;
+        line-height: 1.6;
+      }
+
+      /* ─── PROJECTS ─── */
+      .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 1rem;
+        margin-bottom: 3rem;
+      }
+
+      .project-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 1.5rem;
+        transition: all 0.3s ease;
+        opacity: 0;
+        animation: fadeUp 0.6s ease forwards;
+      }
+
+      .project-card:nth-child(1) {
+        animation-delay: 0.15s;
+      }
+      .project-card:nth-child(2) {
+        animation-delay: 0.3s;
+      }
+
+      .project-card:hover {
+        border-color: var(--accent-purple);
+        transform: translateY(-3px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+      }
+
+      .project-title {
+        font-size: 1.05rem;
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .project-title svg {
+        color: var(--accent-purple);
+      }
+
+      .project-list {
+        list-style: none;
+      }
+
+      .project-list li {
+        position: relative;
+        padding-left: 1.2rem;
+        margin-bottom: 0.5rem;
+        color: var(--text-secondary);
+        font-size: 0.85rem;
+        line-height: 1.6;
+      }
+
+      .project-list li::before {
+        content: "▸";
+        position: absolute;
+        left: 0;
+        color: var(--accent-cyan);
+        font-size: 0.8rem;
+      }
+
+      /* ─── EDUCATION ─── */
+      .education-row {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        margin-bottom: 3rem;
+      }
+
+      .edu-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 1.5rem;
+        transition: all 0.3s ease;
+        opacity: 0;
+        animation: fadeUp 0.6s ease forwards;
+      }
+
+      .edu-card:nth-child(1) {
+        animation-delay: 0.15s;
+      }
+      .edu-card:nth-child(2) {
+        animation-delay: 0.3s;
+      }
+
+      .edu-card:hover {
+        border-color: var(--accent-orange);
+        transform: translateY(-2px);
+      }
+
+      .edu-degree {
+        font-size: 0.95rem;
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+      }
+
+      .edu-school {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.82rem;
+        color: var(--accent-orange);
+      }
+
+      /* ─── FOOTER ─── */
+      .footer {
+        border-top: 1px solid var(--border);
+        padding: 2rem 0;
+        text-align: center;
+        color: var(--text-muted);
+        font-size: 0.8rem;
+      }
+
+      .footer-tech {
+        font-family: "JetBrains Mono", monospace;
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+        margin-bottom: 1rem;
+      }
+
+      .footer-tech span {
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+      }
+
+      .footer-tech .dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+      }
+
+      /* ─── ANIMATIONS ─── */
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* ─── RESPONSIVE ─── */
+      @media (max-width: 768px) {
+        .hero {
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+        }
+
+        .hero-links {
+          justify-content: center;
+        }
+
+        .stats-row {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .tech-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .achievements-grid,
+        .projects-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .education-row {
+          grid-template-columns: 1fr;
+        }
+
+        .timeline-header {
+          flex-direction: column;
+        }
+
+        .hero-info h1 {
+          font-size: 1.8rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- ═══════ HERO ═══════ -->
+      <section class="hero">
+        <div class="avatar-container">
+          <div class="avatar">
+            <span>MK</span>
+          </div>
+          <div class="status-dot"></div>
+        </div>
+        <div class="hero-info">
+          <h1>Mohammad Khazaie</h1>
+          <div class="hero-title">
+            DevOps Engineer<span class="cursor"></span>
+          </div>
+          <p class="hero-summary">
+            Building scalable infrastructures from the ground up. Expertise in
+            multi-cloud automation, container orchestration, and CI/CD
+            pipelines. Proven ability to reduce provisioning time by 70% and
+            deployment failures by 80% through Infrastructure as Code and
+            automated workflows.
+          </p>
+          <div class="hero-links">
+            <a href="mailto:mohammadkhazaie1378@gmail.com" class="hero-link">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <rect x="2" y="4" width="20" height="16" rx="2" />
+                <path d="M22 4L12 13 2 4" />
+              </svg>
+              Email
+            </a>
+            <a
+              href="https://linkedin.com/in/mohammad-khazaie-6225b721a/"
+              class="hero-link"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-7a6 6 0 016-6z"
+                />
+                <rect x="2" y="9" width="4" height="12" />
+                <circle cx="4" cy="4" r="2" />
+              </svg>
+              LinkedIn
+            </a>
+            <a href="#" class="hero-link">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"
+                />
+              </svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════ STATS ═══════ -->
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-number">70%</div>
+          <div class="stat-label">Faster Provisioning</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">80%</div>
+          <div class="stat-label">Fewer Deploy Failures</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">99.9%</div>
+          <div class="stat-label">Uptime Achieved</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">3</div>
+          <div class="stat-label">Cloud Providers</div>
+        </div>
+      </div>
+
+      <!-- ═══════ TECH STACK ═══════ -->
+      <div class="section-header">
+        <h2>Tech Stack</h2>
+        <span class="tag">SKILLS</span>
+        <div class="line"></div>
+      </div>
+      <div class="tech-grid">
+        <div class="tech-category">
+          <div class="tech-category-header">
+            <div class="tech-icon">🐳</div>
+            <div class="tech-category-title">
+              Containerization & Orchestration
+            </div>
+          </div>
+          <div class="tech-tags">
+            <span class="tech-tag">Docker</span>
+            <span class="tech-tag">Kubernetes</span>
+            <span class="tech-tag">Docker Swarm</span>
+            <span class="tech-tag">Helm Charts</span>
+            <span class="tech-tag">GitOps</span>
+          </div>
+        </div>
+        <div class="tech-category">
+          <div class="tech-category-header">
+            <div class="tech-icon">☁️</div>
+            <div class="tech-category-title">
+              Cloud & Infrastructure as Code
+            </div>
+          </div>
+          <div class="tech-tags">
+            <span class="tech-tag">AWS</span>
+            <span class="tech-tag">Linode</span>
+            <span class="tech-tag">Hetzner</span>
+            <span class="tech-tag">Terraform</span>
+            <span class="tech-tag">Ansible</span>
+            <span class="tech-tag">Multi-Cloud</span>
+          </div>
+        </div>
+        <div class="tech-category">
+          <div class="tech-category-header">
+            <div class="tech-icon">🔄</div>
+            <div class="tech-category-title">CI/CD & Automation</div>
+          </div>
+          <div class="tech-tags">
+            <span class="tech-tag">GitLab CI/CD</span>
+            <span class="tech-tag">GitHub Actions</span>
+            <span class="tech-tag">Nexus</span>
+            <span class="tech-tag">Automated Testing</span>
+            <span class="tech-tag">Rollback Strategies</span>
+          </div>
+        </div>
+        <div class="tech-category">
+          <div class="tech-category-header">
+            <div class="tech-icon">📊</div>
+            <div class="tech-category-title">Monitoring & Observability</div>
+          </div>
+          <div class="tech-tags">
+            <span class="tech-tag">Prometheus</span>
+            <span class="tech-tag">Grafana</span>
+            <span class="tech-tag">Graylog</span>
+            <span class="tech-tag">Proactive Alerting</span>
+          </div>
+        </div>
+        <div class="tech-category">
+          <div class="tech-category-header">
+            <div class="tech-icon">🌐</div>
+            <div class="tech-category-title">Web Servers & Networking</div>
+          </div>
+          <div class="tech-tags">
+            <span class="tech-tag">Nginx</span>
+            <span class="tech-tag">Apache</span>
+            <span class="tech-tag">Traefik</span>
+            <span class="tech-tag">SSL/TLS</span>
+            <span class="tech-tag">Load Balancing</span>
+            <span class="tech-tag">Kerio Firewall</span>
+          </div>
+        </div>
+        <div class="tech-category">
+          <div class="tech-category-header">
+            <div class="tech-icon">🗄️</div>
+            <div class="tech-category-title">Databases & Storage</div>
+          </div>
+          <div class="tech-tags">
+            <span class="tech-tag">PostgreSQL</span>
+            <span class="tech-tag">Minio</span>
+            <span class="tech-tag">Backup Strategies</span>
+            <span class="tech-tag">PITR</span>
+            <span class="tech-tag">Data Migration</span>
+            <span class="tech-tag">KeyRING</span>
+          </div>
+        </div>
+        <div class="tech-category">
+          <div class="tech-category-header">
+            <div class="tech-icon">🖥️</div>
+            <div class="tech-category-title">Virtualization & Hardware</div>
+          </div>
+          <div class="tech-tags">
+            <span class="tech-tag">VMware ESXi</span>
+            <span class="tech-tag">Server Maintenance</span>
+            <span class="tech-tag">VM Provisioning</span>
+            <span class="tech-tag">Resource Allocation</span>
+          </div>
+        </div>
+        <div class="tech-category">
+          <div class="tech-category-header">
+            <div class="tech-icon">💻</div>
+            <div class="tech-category-title">Development</div>
+          </div>
+          <div class="tech-tags">
+            <span class="tech-tag">Node.js</span>
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">Android</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════ EXPERIENCE ═══════ -->
+      <div class="experience-section">
+        <div class="section-header">
+          <h2>Experience</h2>
+          <span class="tag">WORK</span>
+          <div class="line"></div>
+        </div>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <div class="timeline-header">
+                <div>
+                  <div class="timeline-role">DevOps Engineer</div>
+                  <div class="timeline-company">AryaHamrah</div>
+                </div>
+              </div>
+              <p class="timeline-desc">
+                Built entire infrastructure from ground up — ESXi virtualization
+                platform, Kerio firewall with custom security policies, Nginx
+                and Apache web servers with SSL/TLS, physical server
+                maintenance, backup solutions, and monitoring systems.
+              </p>
+              <div class="timeline-tags">
+                <span class="timeline-tag">ESXi</span>
+                <span class="timeline-tag">Kerio</span>
+                <span class="timeline-tag">Nginx</span>
+                <span class="timeline-tag">Apache</span>
+                <span class="timeline-tag">SSL/TLS</span>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <div class="timeline-header">
+                <div>
+                  <div class="timeline-role">DevOps Engineer</div>
+                  <div class="timeline-company">
+                    TOP — Super Application Platform
+                  </div>
+                </div>
+              </div>
+              <p class="timeline-desc">
+                Managed containerized platform handling thousands of daily
+                requests in a restricted environment. Implemented Docker Swarm
+                orchestration, GitLab CI/CD, Traefik routing, PostgreSQL with
+                automated backups, Minio object storage, and Terraform for
+                multi-cloud provisioning across AWS, Linode, and Hetzner.
+              </p>
+              <div class="timeline-tags">
+                <span class="timeline-tag">Docker Swarm</span>
+                <span class="timeline-tag">Terraform</span>
+                <span class="timeline-tag">AWS</span>
+                <span class="timeline-tag">Kubernetes</span>
+                <span class="timeline-tag">PostgreSQL</span>
+                <span class="timeline-tag">Multi-Cloud</span>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <div class="timeline-header">
+                <div>
+                  <div class="timeline-role">DevOps Engineer</div>
+                  <div class="timeline-company">Atishahr</div>
+                </div>
+              </div>
+              <p class="timeline-desc">
+                Developed ticket platform for government clients with high
+                transaction volumes. Built Android POS systems while managing
+                infrastructure to deliver scalable systems handling significant
+                request loads efficiently.
+              </p>
+              <div class="timeline-tags">
+                <span class="timeline-tag">Android</span>
+                <span class="timeline-tag">POS Systems</span>
+                <span class="timeline-tag">High Traffic</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════ KEY ACHIEVEMENTS ═══════ -->
+      <div class="section-header">
+        <h2>Key Achievements</h2>
+        <span class="tag">IMPACT</span>
+        <div class="line"></div>
+      </div>
+      <div class="achievements-grid">
+        <div class="achievement-card">
+          <div class="achievement-metric">70%</div>
+          <div class="achievement-title">
+            Faster Infrastructure Provisioning
+          </div>
+          <div class="achievement-context">
+            TOP — Multi-Cloud with Terraform
+          </div>
+          <p class="achievement-desc">
+            Reusable Terraform modules across AWS, Linode, and Hetzner with
+            remote state management and DynamoDB locking.
+          </p>
+        </div>
+        <div class="achievement-card">
+          <div class="achievement-metric">80%</div>
+          <div class="achievement-title">Reduction in Deployment Failures</div>
+          <div class="achievement-context">TOP — CI/CD & GitOps</div>
+          <p class="achievement-desc">
+            Automated testing, rollback strategies, Helm charts, and GitLab
+            CI/CD pipelines with GitOps workflows.
+          </p>
+        </div>
+        <div class="achievement-card">
+          <div class="achievement-metric">99.9%</div>
+          <div class="achievement-title">Uptime with Self-Healing</div>
+          <div class="achievement-context">TOP — Kubernetes Cluster</div>
+          <p class="achievement-desc">
+            Multi-node Kubernetes cluster with Kubespray, etcd clustering,
+            Calico CNI, and horizontal pod autoscaling.
+          </p>
+        </div>
+        <div class="achievement-card">
+          <div class="achievement-metric">60%</div>
+          <div class="achievement-title">Less Manual Configuration</div>
+          <div class="achievement-context">TOP — Ansible Automation</div>
+          <p class="achievement-desc">
+            Automated server setup and configuration management with Ansible
+            playbooks reducing manual intervention.
+          </p>
+        </div>
+        <div class="achievement-card">
+          <div class="achievement-metric">50%</div>
+          <div class="achievement-title">Faster Incident Response</div>
+          <div class="achievement-context">Monitoring Stack</div>
+          <p class="achievement-desc">
+            Prometheus/Grafana metrics, Graylog centralized logging, and
+            proactive alerting systems.
+          </p>
+        </div>
+        <div class="achievement-card">
+          <div class="achievement-metric">100%</div>
+          <div class="achievement-title">Greenfield Infrastructure</div>
+          <div class="achievement-context">AryaHamrah — From Scratch</div>
+          <p class="achievement-desc">
+            Complete infrastructure build including virtualization, firewalls,
+            web servers, SSL, backups, and monitoring.
+          </p>
+        </div>
+      </div>
+
+      <!-- ═══════ PROJECTS ═══════ -->
+      <div class="section-header">
+        <h2>Featured Projects</h2>
+        <span class="tag">BUILD</span>
+        <div class="line"></div>
+      </div>
+      <div class="projects-grid">
+        <div class="project-card">
+          <div class="project-title">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M12 2L2 7l10 5 10-5-10-5z" />
+              <path d="M2 17l10 5 10-5" />
+              <path d="M2 12l10 5 10-5" />
+            </svg>
+            Multi-Cloud Infrastructure with Terraform
+          </div>
+          <ul class="project-list">
+            <li>Reusable Terraform modules for AWS, Linode, and Hetzner</li>
+            <li>
+              Remote state management with S3 backend and DynamoDB locking
+            </li>
+            <li>
+              Infrastructure templates for K8s clusters, databases, and
+              networking
+            </li>
+            <li>Automated workflows reducing provisioning time by 70%</li>
+          </ul>
+        </div>
+        <div class="project-card">
+          <div class="project-title">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <circle cx="12" cy="12" r="3" />
+              <path
+                d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"
+              />
+            </svg>
+            Automated Deployment System
+          </div>
+          <ul class="project-list">
+            <li>GitLab CI/CD pipelines with automated testing and rollback</li>
+            <li>
+              Kubernetes deployments with Helm charts and GitOps workflows
+            </li>
+            <li>
+              PostgreSQL automated backup systems and Minio object storage
+            </li>
+            <li>
+              Infrastructure automation reducing deployment failures by 80%
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ═══════ EDUCATION ═══════ -->
+      <div class="section-header">
+        <h2>Education</h2>
+        <span class="tag">ACADEMIC</span>
+        <div class="line"></div>
+      </div>
+      <div class="education-row">
+        <div class="edu-card">
+          <div class="edu-degree">M.Sc. Computer Engineering</div>
+          <div class="edu-school">Shiraz University</div>
+        </div>
+        <div class="edu-card">
+          <div class="edu-degree">B.Sc. Computer Engineering</div>
+          <div class="edu-school">Fasa University</div>
+        </div>
+      </div>
+
+      <!-- ═══════ FOOTER ═══════ -->
+      <footer class="footer">
+        <div class="footer-tech">
+          <span
+            ><span class="dot" style="background: var(--accent-cyan)"></span>
+            Infrastructure</span
+          >
+          <span
+            ><span class="dot" style="background: var(--accent-green)"></span>
+            Automation</span
+          >
+          <span
+            ><span class="dot" style="background: var(--accent-purple)"></span>
+            Orchestration</span
+          >
+          <span
+            ><span class="dot" style="background: var(--accent-orange)"></span>
+            Monitoring</span
+          >
+        </div>
+        <p>Built with passion for scalable infrastructure · Mohammad Khazaie</p>
+      </footer>
+    </div>
+  </body>
+</html>
